@@ -1,0 +1,114 @@
+﻿@model IEnumerable<ToDoApp.Models.MyTask>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+@if (TempData["InfoMessage"] != null)
+{
+    <div class="alert alert-info">
+        <strong>Information: </strong> @TempData["InfoMessage"]
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span>&times;</span>
+        </button>
+    </div>
+}
+
+else if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-info">
+        <strong>Success!</strong> @TempData["SuccessMessage"]
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span>&times;</span>
+        </button>
+    </div>
+}
+
+else if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-info">
+        <strong>Error!</strong> @TempData["ErrorMessage"]
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span>&times;</span>
+        </button>
+    </div>
+}
+<p>
+    @Html.ActionLink("Create New Task", "Create", null, new { @class = "btn btn-primary" })
+</p>
+
+<p>
+    @Html.ActionLink("Delete All Tasks", "DeleteAllTask", null, new { @class = "btn btn-danger" })
+</p>
+<div>
+    @using (Html.BeginForm("Index", "MyTask", FormMethod.Get))
+    {
+        <table>
+            <tr>
+                <td>
+                    <span><b>Search By: </b></span>
+                    @Html.RadioButton("searchBy", "Task")
+                    <text> Task </text>
+                    @Html.RadioButton("searchBy", "Due")
+                    <text> Due </text>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.TextBox("searchValue",null, new { Class ="form-control", placeholder="Enter Task name or Due Date"})
+                </td>
+                <td>
+                    &nbsp;&nbsp;
+                </td>
+                <td>
+                    <input type="submit", value="Search" class="btn btn-success"/>
+                </td>
+            </tr>
+        </table>
+    }
+</div>
+<br />
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Task)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Details)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Due)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Completed)
+        </th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Task)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Details)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Due)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Completed)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.TaskID }, new { @class = "btn btn-primary" }) &nbsp;&nbsp;&nbsp;
+                @Html.ActionLink("Details", "Details", new { id = item.TaskID }, new { @class = "btn btn-success" })&nbsp;&nbsp;&nbsp;
+                @Html.ActionLink("Delete", "Delete", new { id = item.TaskID }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+
+</table>
