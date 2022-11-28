@@ -1,6 +1,5 @@
 Challenge
-
-Your task is to create a Windows Form OR MVC Web application that models a Todo App saving your todo list in an SqlServer/Postgres Database.
+A MVC Web application that models a Todo App saving your todo list in an SqlServer Database.
 
 Functional requirements
 
